@@ -23,7 +23,7 @@
   <div class="login-box-body">
     <p class="login-box-msg">Inicia tu sesión</p>
 
-    <form action="view/headerCoordinador.php" method="post">
+    <form action="../model/headerCoordinador.php" method="post">
       <div class="form-group has-feedback">
         <input type="email" class="form-control" placeholder="Usuario">
         <span class="glyphicon glyphicon-user form-control-feedback"></span>
