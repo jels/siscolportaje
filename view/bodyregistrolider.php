@@ -8,12 +8,6 @@
       <div class="col-md-10">
                 <div class="nav-tabs-custom">
 
-                  <ul class="nav nav-tabs">
-                    <li class="active"><a href="#settings" data-toggle="tab" aria-expanded="true">Registrar</a></li>
-                    <li><a href="#timeline" data-toggle="tab">Editar</a></li>
-                    <li><a href="#timeline" data-toggle="tab">Dar de Baja</a></li>
-                  </ul>
-
                   <div class="tab-content">
                     <div class="tab-pane active" id="settings">
                       <form class="form-horizontal" action="menuCoordinador.php?modo=InsertLider" method="POST">

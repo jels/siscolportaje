@@ -12,10 +12,11 @@
 		{
 			$conexion = new Conexion();
 
-			$cmd = $conexion->prepare('SELECT u.idUsuario, r.idRol, r.nombrerol, u.usuario, u.contrasena, u.estado
-																								FROM usuario u , rolusuario r
-																								WHERE u.idRol = r.idRol
-																								AND usuario = :usuario');
+			$cmd = $conexion->prepare('SELECT u.idUsuario, r.idRol,  r.nombrerol, u.usuario, u.contrasena, u.estado, p.primerNombre, p.segundoNombre, p.primerApellido, p.segundoApellido, p.celular
+																								FROM usuario u , rolusuario r, persona p
+																							  WHERE u.idRol = r.idRol
+																								AND u.idPersona = p.idPersona
+																								AND u.usuario = :usuario');
 			$cmd->bindParam(':usuario', $usuario);
 			$cmd->execute();
 			$registro = $cmd->fetch();

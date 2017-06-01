@@ -13,23 +13,23 @@ class Manejador
   public function MenuIndex()
   {
     switch ($this->Modo) {
-      case 'CamposLlenos':
-      //include 'view/headerCoordinador.php';
-      include 'model/object/class.User.php';
-      echo "1";
-      include 'model/gestions/class.GestionarUsuario.php';
-      echo "2";
-      include 'model/conexion/class.conexion.php';
-      echo "3";
-      include 'ctrl.ManejadorLogin.php';
-      echo $_POST['user'], $_POST['password'];
+    case 'CamposLlenos':
 
-      $usuario  = new User($_POST['user'], $_POST['password']);
+      include 'model/conexion/class.session.php';
+      include 'model/object/class.Persona.php';
+      include 'model/object/class.User.php';
+      include 'model/gestions/class.GestionarUsuario.php';
+      include 'model/conexion/class.conexion.php';
+      include 'ctrl.ManejadorLogin.php';
+      include 'ctrl.MenuUsuario.php';
+
+      $usuario  = new User();
+      $usuario->setUser($_POST['user']);
+      $usuario->setPassword($_POST['password']);
       $manejadorLogin =  new ManejadorLogin();
       $manejadorLogin->Autentificacion($usuario);
-        break;
-
-        case 'ErrorPassword':
+    break;
+    case 'ErrorPassword':
         include 'view/headerLogin.html';
           ?>
           <div class="alert alert-warning alert-dismissable">
@@ -39,8 +39,8 @@ class Manejador
           <?php
           include 'view/bodyLogin.html';
           include 'view/footerLogin.html';
-          break;
-        case 'AccesoDenegado':
+    break;
+    case 'AccesoDenegado':
         include 'view/headerLogin.html';
         ?>
         <p class="login-box-msg">Inicia tu sesión</p>
@@ -51,8 +51,8 @@ class Manejador
         <?php
         include 'view/bodyLogin.html';
         include 'view/footerLogin.html';
-          break;
-        case 'UsuarioInexistente':
+    break;
+    case 'UsuarioInexistente':
         include 'view/headerLogin.html';
         ?>
         <div class="alert alert-warning alert-dismissable">
@@ -62,37 +62,44 @@ class Manejador
         <?php
         include 'view/bodyLogin.html';
         include 'view/footerLogin.html';
-          break;
-
-      default:
-      include 'view/headerLogin.html';
-      include 'view/bodyLogin.html';
-      include 'view/footerLogin.html';
-        break;
+    break;
+    default:
+        include 'view/headerLogin.html';
+        include 'view/bodyLogin.html';
+        include 'view/footerLogin.html';
+    break;
     }
   }
 //PARA INISIAR SESSION DE CADA USUARIO
   public function MenuUsuario()
   {
     switch ($this->Modo) {
-      case 'COORDINADOR':
-       include '../view/headerCoordinador.php';
-       include '../view/bodyCoordinador.html';
-       include '../view/footerCoordinador.html';
-        break;
-      case 'LIDER':
-        include '../view/headerLider.php';
-        include '../view/bodyLider.html';
-        include '../view/footerLider.html';
-        break;
-      case 'COLPORTOR':
+    case 'COORDINADOR':
+      //echo "Hola COORDINADOR";
+     include '../view/headerCoordinador.php';
+     include '../view/bodyCoordinador.html';
+     include '../view/footerCoordinador.html';
+    break;
+    case 'LIDER':
+      include '../view/headerLider.php';
+      include '../view/bodyLider.html';
+      include '../view/footerLider.html';
+      break;
+    case 'COLPORTOR':
           include '../view/headerColportor.php';
           include '../view/bodyColportor.html';
           include '../view/footerColportor.html';
-          break;
-      default:
-        # code...
-        break;
+    break;
+    case 'CerrarSession':
+      session_start();
+      session_destroy();
+      header("Location: ../index.php");
+    break;
+    default:
+      include '../view/headerLogin.html';
+      include '../view/bodyLogin.html';
+      include '../view/footerLogin.html';
+    break;
     }
   }
 
@@ -109,35 +116,36 @@ class Manejador
 
     case 'InsertLider':
         require('../model/object/class.Persona.php');
-        require('../model/gestions/class.GestionarLider.php');
+        require('../model/gestions/class.GestionarPersona.php');
         require_once('../model/conexion/class.conexion.php');
 
-        $lider = new Persona();
-        $gestionarLider =  new GestionarLider();
+        $persona = new Persona();
+        $gestionarPersona =  new GestionarPersona();
 
         //BUSCAMOS CI
-        $existeCI = $gestionarLider->BuscarCI($_POST['ci']);
+        $existeCI = $gestionarPersona->BuscarCI($_POST['ci']);
         if ($existeCI == TRUE) {
-          header('Location: menuCoordinador.php?modo=ciExistente');
+          header('Location: menuCoordinador.php?modo=ciExistenteLider');
         }else {
-                 $lider-> setPrimerNombre($_POST['primerNombre']);
-                 $lider-> setSegundoNombre($_POST['segundoNombre']);
-                 $lider-> setPrimerApellido($_POST['primerApellido']);
-                 $lider-> setSegundoApellido($_POST['segundoApellido']);
-                 $lider-> setCi($_POST['ci']);
-                 $lider-> setSexo($_POST['sexo']);
-                 $lider-> setLugarExpedicionCI($_POST['expedicionCI']);
-                 $lider-> setFechaNacimiento($_POST['fechaNacimiento']);
-                 $lider-> setLugarNacimiento($_POST['lugarNacimiento']);
-                 $lider-> setPais($_POST['pais']);
-                 $lider-> setCiudad($_POST['ciudad']);
-                 $lider-> setGradoAcademico($_POST['gradoAcademico']);
-                 $lider-> setUniversidad($_POST['universidad']);
-                 $lider-> setFacultad($_POST['facultad']);
-                 $lider-> setCarrera($_POST['carrera']);
-                 $lider-> setCelular($_POST['celular']);
+          //REGISTRO DE PERSONA
+                 $persona-> setPrimerNombre($_POST['primerNombre']);
+                 $persona-> setSegundoNombre($_POST['segundoNombre']);
+                 $persona-> setPrimerApellido($_POST['primerApellido']);
+                 $persona-> setSegundoApellido($_POST['segundoApellido']);
+                 $persona-> setCi($_POST['ci']);
+                 $persona-> setSexo($_POST['sexo']);
+                 $persona-> setLugarExpedicionCI($_POST['expedicionCI']);
+                 $persona-> setFechaNacimiento($_POST['fechaNacimiento']);
+                 $persona-> setLugarNacimiento($_POST['lugarNacimiento']);
+                 $persona-> setPais($_POST['pais']);
+                 $persona-> setCiudad($_POST['ciudad']);
+                 $persona-> setGradoAcademico($_POST['gradoAcademico']);
+                 $persona-> setUniversidad($_POST['universidad']);
+                 $persona-> setFacultad($_POST['facultad']);
+                 $persona-> setCarrera($_POST['carrera']);
+                 $personas-> setCelular($_POST['celular']);
 
-                 $verificarRegistro = $gestionarLider->GuardarLider($lider);
+                 $verificarRegistro = $gestionarPersona->GuardarPersona($persona);
 
                  if ($verificarRegistro == TRUE) {
                    header('Location: menuCoordinador.php?modo=RegistroLiderExitoso');
@@ -174,7 +182,7 @@ class Manejador
        include '../view/bodyRegistroLider.php';
        include '../view/footerCoordinador.html';
     break;
-    case 'ciExistente':
+    case 'ciExistenteLider':
       include '../view/headerCoordinador.php';
       ?>
         <div class="alert alert-warning alert-dismissable">
@@ -251,6 +259,13 @@ class Manejador
             /*CRUD CAMPAÑA*/
       case 'InsertCampana':
         break;
+
+              /*CRUD CAMPAÑA*/
+      case 'ViewRegistrarCampana':
+        include '../view/headerCoordinador.php';
+        include '../view/bodyRegistroColportor.php';
+        include '../view/footerCoordinador.html';
+      break;
       default:
         # code...
         break;
