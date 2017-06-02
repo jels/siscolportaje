@@ -4,7 +4,7 @@
 
         include '../controller/ctrl.Index.php';
         $menu = new Manejador($_GET['modo']);
-        $menu->MenuCoordinador();
+        $menu->MenuColportor();
 
     }else {
       $menu = new Manejador('default');

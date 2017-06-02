@@ -199,7 +199,7 @@ class Manejador
         include '../view/headerCoordinador.php';
         include '../view/bodyRegistroColportor.php';
         include '../view/footerCoordinador.html';
-        break;
+      break;
       case 'InserColportor':
         require('../model/object/class.Persona.php');
         require('../model/gestions/class.GestionarLider.php');
@@ -232,7 +232,7 @@ class Manejador
         }else {
           header('Location: menuCoordinador.php?modo=RegistroColportorError');
         }
-        break;
+      break;
       case 'RegistroColportorExitoso':
           include '../view/headerCoordinador.php';
           ?>
@@ -243,7 +243,7 @@ class Manejador
           <?php
           include '../view/bodyRegistroLider.php';
           include '../view/footerCoordinador.html';
-        break;
+      break;
       case 'RegistroColportorError':
           include '../view/headerCoordinador.php';
           ?>
@@ -254,11 +254,7 @@ class Manejador
           <?php
           include '../view/bodyRegistroLider.php';
           include '../view/footerCoordinador.html';
-        break;
-
-            /*CRUD CAMPAÑA*/
-      case 'InsertCampana':
-        break;
+      break;
 
               /*CRUD CAMPAÑA*/
       case 'ViewRegistrarCampana':
@@ -266,6 +262,80 @@ class Manejador
         include '../view/bodyRegistroColportor.php';
         include '../view/footerCoordinador.html';
       break;
+      case 'InsertCampana':
+      break;
+      default:
+        # code...
+      break;
+    }
+  }
+
+  public function MenuLider()
+  {
+    switch ($this->Modo) {
+      case 'ViewRegistrarColportor':
+        include '../view/headerCoordinador.php';
+        include '../view/bodyRegistroColportor.php';
+        include '../view/footerCoordinador.html';
+      break;
+      case 'InsertLider':
+          require('../model/object/class.Persona.php');
+          require('../model/gestions/class.GestionarPersona.php');
+          require_once('../model/conexion/class.conexion.php');
+
+          $persona = new Persona();
+          $gestionarPersona =  new GestionarPersona();
+
+          //BUSCAMOS CI
+          $existeCI = $gestionarPersona->BuscarCI($_POST['ci']);
+          if ($existeCI == TRUE) {
+            header('Location: menuCoordinador.php?modo=ciExistenteLider');
+          }else {
+            //REGISTRO DE PERSONA
+                   $persona-> setPrimerNombre($_POST['primerNombre']);
+                   $persona-> setSegundoNombre($_POST['segundoNombre']);
+                   $persona-> setPrimerApellido($_POST['primerApellido']);
+                   $persona-> setSegundoApellido($_POST['segundoApellido']);
+                   $persona-> setCi($_POST['ci']);
+                   $persona-> setSexo($_POST['sexo']);
+                   $persona-> setLugarExpedicionCI($_POST['expedicionCI']);
+                   $persona-> setFechaNacimiento($_POST['fechaNacimiento']);
+                   $persona-> setLugarNacimiento($_POST['lugarNacimiento']);
+                   $persona-> setPais($_POST['pais']);
+                   $persona-> setCiudad($_POST['ciudad']);
+                   $persona-> setGradoAcademico($_POST['gradoAcademico']);
+                   $persona-> setUniversidad($_POST['universidad']);
+                   $persona-> setFacultad($_POST['facultad']);
+                   $persona-> setCarrera($_POST['carrera']);
+                   $personas-> setCelular($_POST['celular']);
+
+                   $verificarRegistro = $gestionarPersona->GuardarPersona($persona);
+
+                   if ($verificarRegistro == TRUE) {
+                     header('Location: menuLider.php?modo=RegistroColportorExitoso');
+                     //$sms = new Manejador($_POST['RegistroLiderExitoso']);
+                     //$sms->MenuCoordinador();
+                   }else {
+                     header('Location: menuLider.php?modo=RegistroColportorError');
+                     //$sms = new Manejador($_GET['RegistroLiderError']);
+                     //$sms->MenuCoordinador();
+                   }
+          }
+          //echo "" . $lider->getPrimerNombre();
+          //echo ''. $_POST['lugarNacimiento'] . '<br>' . $_POST['pais'];
+      break;
+      default:
+        # code...
+        break;
+    }
+  }
+  public function MenuColportor()
+  {
+    switch ($this->Modo) {
+      case 'ViewRegistrarCliente':
+        # code...
+        break;
+
       default:
         # code...
         break;
