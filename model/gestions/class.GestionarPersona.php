@@ -98,7 +98,7 @@
 			{
 				echo 'ERROR: No se logro realizar la nueva inserción - '.$e->getMesage();
 				exit();
-				return FALSE;
+				//return FALSE;
 			}
 		}
 
@@ -136,14 +136,6 @@
 				$consulta->execute();
 				$idPersona = $consulta->fetch();
 				return $idPersona;
-				/*
-				if ($idPersona) {
-					foreach ($idPersona as $id ) {
-						return $id['id'] + 1;
-					}
-				}else {
-					return $idPersona = 0;
-				}*/
 		}
 	}
  ?>

@@ -150,17 +150,18 @@ class Manejador
                  $persona-> setCarrera($_POST['carrera']);
                  $persona-> setCelular($_POST['celular']);
 
-                 //$verificarRegistro = $gestionarPersona->GuardarPersona($persona);
-                 $verificarRegistro = TRUE;
+                 $verificarRegistro = $gestionarPersona->GuardarPersona($persona);
+                 //$verificarRegistro = TRUE;
 
-                 if ($verificarRegistro == TRUE) {
+                 if ($verificarRegistro) {
 
-                   //OBTENER DE LA ULTIMA INSERT EL "ID"
+                   //OBTENER DEL ULTIMO INSERT EL "ID"
                    $ultimoId = $gestionarPersona->ObtenerUltimoId();
-
+                  //echo $ultimoId['id'];
                    //REGISTRO USER
-                    $persona->setIdRol('1');
-                    $persona->setIdPersona($ultimoId['id']);
+                    $persona->setIdRol(1);
+                    //$persona->setIdPersona($ultimoId['id']);
+                    $persona->setIdPersona(7);
                     $persona->setUser($_POST['usuario']);
                     $persona->setPassword($_POST['password']);
                     $persona->setEstado($_POST['estado']);
@@ -206,6 +207,15 @@ class Manejador
       <?php
       include '../view/bodyRegistroLider.php';
       include '../view/footerCoordinador.html';
+    break;
+    case 'VerLider':
+    include '../view/headerCoordinador.php';
+    require ('../model/conexion/class.conexion.php');
+    require ('../model/object/class.Persona.php');
+    require ('../model/object/class.User.php');
+    require ('../model/gestions/class.GestionarUsuario.php');
+    include '../view/bodyListarLider.php';
+    include '../view/footerCoordinador.html';
     break;
 
               /*CRUD COLPORTOR*/

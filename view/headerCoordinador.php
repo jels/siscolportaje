@@ -116,7 +116,7 @@
           </a>
           <ul class="treeview-menu">
             <li class="active"><a href="menuCoordinador.php?modo=ViewRegistrarLider"><i class="fa fa-circle-o"></i> Registrar</a></li>
-            <li class="active"><a href="#"><i class="fa fa-circle-o"></i> Listar</a></li>
+            <li class="active"><a href="menuCoordinador.php?modo=VerLider"><i class="fa fa-circle-o"></i> Listar</a></li>
           </ul>
         </li>
 
