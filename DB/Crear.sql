@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS  siscolportor;
 CREATE DATABASE siscolportor;
 USE siscolportor;
 
---1 Persona
+-- 1 Persona
 CREATE TABLE Persona(
 	idPersona int not null auto_increment primary key,
 	primerNombre varchar(30) not null,
@@ -24,31 +24,31 @@ CREATE TABLE Persona(
   foto text null
 );
 
---2 Union
+-- 2 Union
 CREATE TABLE Unionn(
 	idUnion int not null auto_increment primary key,
 	nombre varchar(60) not null
 );
 
---3 Rol Usuario
+-- 3 Rol Usuario
 CREATE TABLE RolUsuario(
-    idRol int unsigned not null auto_increment primary key,
+    idRol int not null auto_increment primary key,
     nombreRol varchar(40) not null
 );
 
---4 Categoria
+-- 4 Categoria
 CREATE TABLE Categoria(
 	idCategoria int not null auto_increment primary key,
 	nombre varchar(40) not null
 );
 
---5 Tipo Venta
+-- 5 Tipo Venta
 CREATE TABLE TipoVenta(
 	idTipoVenta int not null auto_increment primary key,
 	nombre varchar(25) not null
 );
 
---6 Cliente
+-- 6 Cliente
 CREATE TABLE Cliente(
 	idCliente int not null auto_increment primary key,
 	primerNombre varchar(30) not null,
@@ -60,28 +60,27 @@ CREATE TABLE Cliente(
 	observaciones varchar(100) null
 );
 
---7 Tipo Gasto Campaña
+-- 7 Tipo Gasto Campaña
 CREATE TABLE tipo(
 	idTipo int not null auto_increment primary key,
 	nombre varchar(30) not null
 );
 
---8 Tipo de Campaña
+-- 8 Tipo de Campaña
 CREATE TABLE TipoCampana(
 	idTipoCampana int not null auto_increment primary key,
 	nombre varchar(30) not null
 );
 
---9 Mision
+-- 9 Mision
 CREATE TABLE Mision(
 	idMision int not null auto_increment primary key,
 	idUnion int not null,
 	nombre varchar(25) not null,
 	FOREIGN KEY (idUnion) REFERENCES Unionn (idUnion) ON UPDATE CASCADE ON DELETE CASCADE
 );
---FOREIGN KEY(idRol)REFERENCES RolUsuario (idRol) ON UPDATE CASCADE ON DELETE CASCADE,
 
---10 Zona
+-- 10 Zona
 CREATE TABLE Zona(
 	idZona int not null auto_increment primary key,
 	nombre varchar(100) not null,
@@ -89,7 +88,7 @@ CREATE TABLE Zona(
 	croquis text null
 );
 
---11 Deposito
+-- 11 Deposito
 CREATE TABLE Deposito(
 	idDeposito int not null auto_increment primary key,
 	idPersona int not null,
@@ -98,7 +97,7 @@ CREATE TABLE Deposito(
 	FOREIGN KEY (idPersona) REFERENCES Persona (idPersona) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
---12 Libro
+-- 12 Libro
 CREATE TABLE Libro(
 	idLibro int not null auto_increment primary key,
 	idCategoria int not null,
@@ -110,16 +109,7 @@ CREATE TABLE Libro(
 	FOREIGN KEY (idCategoria) REFERENCES Categoria (idCategoria) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
---13 Pagos
-CREATE TABLE Pagos(
-	idPago int not null auto_increment primary key,
-	idVenta int not null,
-	fecha date not null,
-	monto float(5,2) not null,
-	FOREIGN KEY (idVenta) REFERENCES Venta (idVenta) ON UPDATE CASCADE ON DELETE CASCADE
-);
-
---15 Grupo Persona
+-- 13 Grupo Persona
 CREATE TABLE GrupoPersona(
 	idGrupoPersona int not null auto_increment primary key,
 	idGrupo int not null,
@@ -128,7 +118,7 @@ CREATE TABLE GrupoPersona(
 	FOREIGN KEY (idPersona) REFERENCES Persona (idPersona) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
---16 Gasto Campaña
+-- 14 Gasto Campaña
 CREATE TABLE GastoCampana(
 	idGastoCampana int not null auto_increment primary key,
 	idTipo int not null,
@@ -138,9 +128,9 @@ CREATE TABLE GastoCampana(
 	FOREIGN KEY (idGrupo) REFERENCES Grupo (idGrupo) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
---17 Usuario
+-- 15 Usuario
 CREATE TABLE Usuario(
-    idUsuario int unsigned not null auto_increment primary key,
+    idUsuario int not null auto_increment primary key,
     idRol int not null,
     idPersona int not null,
     usuario varchar(25) unique not null,
@@ -150,7 +140,7 @@ CREATE TABLE Usuario(
     FOREIGN KEY(idPersona)REFERENCES Persona (idPersona) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
---18 Campaña
+-- 16 Campaña
 CREATE TABLE Campana(
 	idCampana int not null auto_increment primary key,
 	idMision int not null,
@@ -166,7 +156,7 @@ CREATE TABLE Campana(
 	FOREIGN KEY (idPersona) REFERENCES Persona (idPersona) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
---14 Grupo
+-- 17 Grupo
 CREATE TABLE Grupo(
 	idGrupo int not null auto_increment primary key,
 	idZona int not null,
@@ -178,7 +168,7 @@ CREATE TABLE Grupo(
 	FOREIGN KEY (idCampana) REFERENCES Campana (idCampana) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
---19 Asignacion Libro
+-- 18 Asignacion Libro
 CREATE TABLE AsignacionLibro(
 	idAsignacionLibro int not null auto_increment primary key,
 	idPersona int not null,
@@ -189,7 +179,7 @@ CREATE TABLE AsignacionLibro(
 	FOREIGN KEY (idLibro) REFERENCES Libro (idLibro) ON UPDATE CASCADE ON DELETE CASCADE
 );
 
---20 Devolucion
+-- 19 Devolucion
 	CREATE TABLE Devolucion(
 		idDevolucion int not null auto_increment primary key,
 		idPersona int not null,
@@ -200,7 +190,7 @@ CREATE TABLE AsignacionLibro(
 		FOREIGN KEY (idLibro) REFERENCES Libro (idLibro) ON UPDATE CASCADE ON DELETE CASCADE
 	);
 
-	--21 	Compras
+	-- 20 	Compras
 		CREATE TABLE Compras(
 			idCompra int not null auto_increment primary key,
 			idPersona int not null,
@@ -211,7 +201,7 @@ CREATE TABLE AsignacionLibro(
 			FOREIGN KEY (idLibro) REFERENCES Libro (idLibro) ON UPDATE CASCADE ON DELETE CASCADE
 		);
 
-		--22 Venta
+		-- 21 Venta
 		CREATE TABLE Venta(
 			idVenta int not null auto_increment primary key,
 			idTipoVenta int not null,
@@ -221,4 +211,13 @@ CREATE TABLE AsignacionLibro(
 			FOREIGN KEY (idTipoVenta) REFERENCES TipoVenta (idTipoVenta) ON UPDATE CASCADE ON DELETE CASCADE,
 			FOREIGN KEY (idLibro) REFERENCES Libro (idLibro) ON UPDATE CASCADE ON DELETE CASCADE,
 			FOREIGN KEY (idCliente) REFERENCES Cliente (idCliente) ON UPDATE CASCADE ON DELETE CASCADE
+		);
+
+		-- 22 Pagos
+		CREATE TABLE Pagos(
+			idPago int not null auto_increment primary key,
+			idVenta int not null,
+			fecha date not null,
+			monto float(5,2) not null,
+			FOREIGN KEY (idVenta) REFERENCES Venta (idVenta) ON UPDATE CASCADE ON DELETE CASCADE
 		);

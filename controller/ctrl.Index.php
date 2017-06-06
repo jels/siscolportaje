@@ -115,18 +115,23 @@ class Manejador
         /*CRUD DE LIDER*/
 
     case 'InsertLider':
+
         require('../model/object/class.Persona.php');
+        require('../model/object/class.User.php');
         require('../model/gestions/class.GestionarPersona.php');
+        require('../model/gestions/class.GestionarUsuario.php');
         require_once('../model/conexion/class.conexion.php');
 
-        $persona = new Persona();
+        $persona = new User();
         $gestionarPersona =  new GestionarPersona();
+        $gestionarUsuario = new GestionarUsuario();
 
         //BUSCAMOS CI
         $existeCI = $gestionarPersona->BuscarCI($_POST['ci']);
         if ($existeCI == TRUE) {
           header('Location: menuCoordinador.php?modo=ciExistenteLider');
         }else {
+
           //REGISTRO DE PERSONA
                  $persona-> setPrimerNombre($_POST['primerNombre']);
                  $persona-> setSegundoNombre($_POST['segundoNombre']);
@@ -143,22 +148,31 @@ class Manejador
                  $persona-> setUniversidad($_POST['universidad']);
                  $persona-> setFacultad($_POST['facultad']);
                  $persona-> setCarrera($_POST['carrera']);
-                 $personas-> setCelular($_POST['celular']);
+                 $persona-> setCelular($_POST['celular']);
 
-                 $verificarRegistro = $gestionarPersona->GuardarPersona($persona);
+                 //$verificarRegistro = $gestionarPersona->GuardarPersona($persona);
+                 $verificarRegistro = TRUE;
 
                  if ($verificarRegistro == TRUE) {
-                   header('Location: menuCoordinador.php?modo=RegistroLiderExitoso');
-                   //$sms = new Manejador($_POST['RegistroLiderExitoso']);
-                   //$sms->MenuCoordinador();
-                 }else {
+
+                   //OBTENER DE LA ULTIMA INSERT EL "ID"
+                   $ultimoId = $gestionarPersona->ObtenerUltimoId();
+
+                   //REGISTRO USER
+                    $persona->setIdRol('1');
+                    $persona->setIdPersona($ultimoId['id']);
+                    $persona->setUser($_POST['usuario']);
+                    $persona->setPassword($_POST['password']);
+                    $persona->setEstado($_POST['estado']);
+
+                   $verificarUser = $gestionarUsuario->GuardarUsuario($persona);
+                   /*if ($verificarUser == TRUE) {
+                     header('Location: menuCoordinador.php?modo=RegistroLiderExitoso');
+                   }else {
                    header('Location: menuCoordinador.php?modo=RegistroLiderError');
-                   //$sms = new Manejador($_GET['RegistroLiderError']);
-                   //$sms->MenuCoordinador();
-                 }
+                 }*/
         }
-        //echo "" . $lider->getPrimerNombre();
-        //echo ''. $_POST['lugarNacimiento'] . '<br>' . $_POST['pais'];
+      }
     break;
     case 'RegistroLiderExitoso':
       include '../view/headerCoordinador.php';

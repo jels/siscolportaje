@@ -9,26 +9,26 @@
 			$this->Conexion =  new Conexion();
 		}
 
-		public function GuardarPersona(Persona $persona){
-
+		public function GuardarPersona(Persona $persona)
+		{
 			/*1*/$idPersona = $persona->getIdPersona();
-			/*2*/$primerNombre = $persona->getPrimerNombre();
-			/*3*/$segundoNombre =  $persona->getSegundoNombre();
-			/*4*/$primerApellido = $persona->getPrimerApellido();
-			/*5*/$segundoApellido =  $persona->getSegundoApellido();
-			/*6*/$ci = $persona->getCi();
-			/*7*/$lugarExpedicionCI = $persona->getLugarExpedicionCI();
-			/*8*/$sexo =  $persona->getSexo();
+			/*2*/$primerNombre = $this->ConvertString($persona->getPrimerNombre());
+			/*3*/$segundoNombre =  $this->ConvertString($persona->getSegundoNombre());
+			/*4*/$primerApellido = $this->ConvertString($persona->getPrimerApellido());
+			/*5*/$segundoApellido = $this->ConvertString($persona->getSegundoApellido());
+			/*6*/$ci = strtolower($persona->getCi());
+			/*7*/$lugarExpedicionCI = strtoupper($persona->getLugarExpedicionCI());
+			/*8*/$sexo =  $this->ConvertString($persona->getSexo());
 			/*9*/$fechaNacimiento  = $persona->getFechaNacimiento();
-			/*10*/$lugarNacimiento = $persona->getLugarNacimiento();
-			/*11*/$pais =  $persona->getPais();
-			/*12*/$ciudad =  $persona->getCiudad();
-			/*13*/$gradoAcademico  = $persona->getGradoAcademico();
-			/*14*/$universidad =  $persona->getUniversidad();
-			/*15*/$facultad =  $persona->getFacultad();
-			/*16*/$carrera =  $persona->getCarrera();
-			/*17*/$celular =  $persona->getCelular();
-			/*18*/$foto =  $persona->getFoto();
+			/*10*/$lugarNacimiento = $this->ConvertString($persona->getLugarNacimiento());
+			/*11*/$pais =  $this->ConvertString($persona->getPais());
+			/*12*/$ciudad =  $this->ConvertString($persona->getCiudad());
+			/*13*/$gradoAcademico  = $this->ConvertString($persona->getGradoAcademico());
+			/*14*/$universidad =  $this->ConvertString($persona->getUniversidad());
+			/*15*/$facultad =  $this->ConvertString($persona->getFacultad());
+			/*16*/$carrera =  $this->ConvertString($persona->getCarrera());
+			/*17*/$celular = $persona->getCelular();
+			/*18*/$foto = $persona->getFoto();
 			/*Calcular la edad automatico
 			$edad = getEdad();*/
 			try {
@@ -102,7 +102,8 @@
 			}
 		}
 
-		public function BuscarCI($ci){
+		public function BuscarCI($ci)
+		{
 			$consulta = $this->Conexion->prepare('SELECT ci FROM persona WHERE ci = :ci');
 			$consulta->bindParam(':ci', $ci);
 			$consulta->execute();
@@ -119,6 +120,30 @@
 			}else {
 				return $existe = FALSE;
 			}
+		}
+
+		public function ConvertString($string)
+		{
+			$primerFase = strtolower($string);
+			$segundaFase = ucwords($primerFase);
+			return $segundaFase;
+		}
+
+		public function ObtenerUltimoId()
+		{
+				$consulta = $this->Conexion->prepare('SELECT MAX(idPersona) AS id FROM persona');
+
+				$consulta->execute();
+				$idPersona = $consulta->fetch();
+				return $idPersona;
+				/*
+				if ($idPersona) {
+					foreach ($idPersona as $id ) {
+						return $id['id'] + 1;
+					}
+				}else {
+					return $idPersona = 0;
+				}*/
 		}
 	}
  ?>

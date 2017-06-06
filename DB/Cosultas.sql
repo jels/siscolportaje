@@ -9,3 +9,7 @@ AND u.usuario = 'Rpaz';
 SELECT ci
 FROM persona
 WHERE ci = 444444;
+
+-- Obtener el ultimo ID
+SELECT MAX(idPersona) as  ID
+FROM persona;

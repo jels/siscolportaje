@@ -14,7 +14,7 @@
                         <div class="form-group">
                           <label for="primerNombre" class="col-sm-2 control-label">Primer Nombre</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre">
+                            <input type="text" class="form-control" id="primerNombre" name="primerNombre" placeholder="Primer Nombre" >
                           </div>
                         </div>
 
@@ -28,7 +28,7 @@
                         <div class="form-group">
                            <label for="primerApellido" class="col-sm-2 control-label">Primer Apellido</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido">
+                            <input type="text" class="form-control" id="primerApellido" name="primerApellido" placeholder="Primer Apellido" >
                           </div>
                         </div>
 
@@ -42,24 +42,24 @@
                         <div class="form-group">
                            <label for="ci" class="col-sm-2 control-label">Cedula de Identidad</label>
                           <div class="col-sm-7">
-                            <input type="text" class="form-control" id="ci" name="ci" placeholder="Cedula de Identidad">
+                            <input type="text" class="form-control" id="ci" name="ci" placeholder="Cedula de Identidad" >
                           </div>
                           <div class="col-sm-3">
-                            <input type="text" class="form-control" id="expedicionCI" name="expedicionCI" placeholder="Expedito">
+                            <input type="text" class="form-control" id="expedicionCI" name="expedicionCI" placeholder="Expedito" >
                           </div>
                         </div>
 
                         <div class="form-group">
                           <label for="fechaNacimiento" class="col-sm-2 control-label">Fecha de Nacimiento</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha de Nacimiento">
+                            <input type="text" class="form-control" id="fechaNacimiento" name="fechaNacimiento" placeholder="Fecha de Nacimiento" >
                           </div>
                         </div>
 
                         <div class="form-group">
                           <label for="lugarNacimiento" class="col-sm-2 control-label">Lugar de Nacimiento</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="lugarNacimiento" name="lugarNacimiento" placeholder="Lugar de Nacimiento">
+                            <input type="text" class="form-control" id="lugarNacimiento" name="lugarNacimiento" placeholder="Lugar de Nacimiento" >
                           </div>
                         </div>
 
@@ -76,14 +76,14 @@
                         <div class="form-group">
                           <label for="pais" class="col-sm-2 control-label">Pais</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="pais" name="pais" placeholder="País">
+                            <input type="text" class="form-control" id="pais" name="pais" placeholder="País" >
                           </div>
                         </div>
 
                         <div class="form-group">
                           <label for="ciudad" class="col-sm-2 control-label">Ciudad</label>
                           <div class="col-sm-10">
-                            <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad">
+                            <input type="text" class="form-control" id="ciudad" name="ciudad" placeholder="Ciudad" >
                           </div>
                         </div>
 
@@ -119,6 +119,30 @@
                           <label for="celular" class="col-sm-2 control-label">Celular</label>
                           <div class="col-sm-10">
                             <input type="text" class="form-control" id="celular" name="celular" placeholder="Celular">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="usuario" class="col-sm-2 control-label">Usuario</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuario">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="password" class="col-sm-2 control-label">Contraseña</label>
+                          <div class="col-sm-10">
+                            <input type="text" class="form-control" id="password" name="password" placeholder="Contraseña">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <label for="estado" class="col-sm-2 control-label">Estado</label>
+                          <div class="col-sm-10">
+                            <select id="estado" name="estado" class="form-control">
+                            <option value="TRUE">Activo</option>
+                            <option value="FALSE">Inactivo</option>
+                          </select>
                           </div>
                         </div>
 

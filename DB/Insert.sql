@@ -17,4 +17,5 @@ INSERT INTO Categoria VALUE (null, 'Medicina');
 -- 2. Usuarios
 INSERT INTO Usuario VALUE(null, 1, 1, "Lgutierrez", "1111111", TRUE);
 INSERT INTO Usuario VALUE(null, 2, 2, "Jgutierrez", "2222222", TRUE);
+INSERT INTO Usuario VALUE(null, 2, 2, "jhonny", "4444444", TRUE);
 INSERT INTO Usuario VALUE(null, 3, 3, "Rpaz", "3333333", TRUE);
